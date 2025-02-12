@@ -6,93 +6,174 @@
     <title>الصفحة الرئيسية</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2980b9, #8e44ad); /* تدرج ألوان بين الأزرق والأرجواني */
             color: white;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         h1 {
+            font-size: 36px;
             margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* تأثير ظل العنوان */
         }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: normal;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* تأثير ظل العنوان الفرعي */
+        }
+
         .container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+            width: 100%;
+            align-items: center;
         }
+
         .teacher-card {
-            background: #fff;
-            color: black;
+            background: #ffffff;
+            color: #333;
             border-radius: 15px;
+            width: 80%;
             padding: 20px;
-            width: 200px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 18px;
+            margin-bottom: 20px;
         }
+
         .teacher-card:hover {
-            background: #f39c12;
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
+
         .teacher-card img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
-            margin-bottom: 10px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .teacher-card p {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background-color: #3498db; /* أزرار باللون الأزرق */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9; /* تغيير اللون عند المرور */
+            transform: scale(1.05);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                gap: 15px;
+            }
+
+            .teacher-card {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>مرحبًا بك في الصفحة الرئيسية</h1>
-    <h2>اختر المدرس:</h2>
+    <h1>الصفحة الرئيسية</h1>
+    <h2>!!اختر مدرسك الان</h2>
 
     <div class="container">
         <!-- المدرسون -->
         <div class="teacher-card">
             <a href="lectures.html?teacher=0">
-                <img src="https://via.placeholder.com/100" alt="فل الزبيدي"><br>فل الزبيدي
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_18.jpg" alt="رفل الزبيدي">
+                    <p>رفل الزبيدي</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=1">
-                <img src="https://via.placeholder.com/100" alt="هشام المعموري"><br>هشام المعموري
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_19.jpg" alt="هشام المعموري">
+                    <p>هشام المعموري</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=2">
-                <img src="https://via.placeholder.com/100" alt="مؤيد سليم"><br>مؤيد سليم
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_17.jpg" alt="مؤيد سليم">
+                    <p>مؤيد سليم</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=3">
-                <img src="https://via.placeholder.com/100" alt="حسن عبد الكاظم"><br>حسن عبد الكاظم
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_21.jpg" alt="حسن عبد الكاظم">
+                    <p>حسن عبد الكاظم</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=4">
-                <img src="https://via.placeholder.com/100" alt="حيدر عبد الائمة"><br>حيدر عبد الائمة
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_23.jpg" alt="حيدر عبد الائمة">
+                    <p>حيدر عبد الائمة</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=5">
-                <img src="https://via.placeholder.com/100" alt="ساجد العكيلي"><br>ساجد العكيلي
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_20.jpg" alt="ساجد العكيلي">
+                    <p>ساجد العكيلي</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=6">
-                <img src="https://via.placeholder.com/100" alt="نورس الموسوي"><br>نورس الموسوي
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_22.jpg" alt="نورس الموسوي">
+                    <p>نورس الموسوي</p>
+                </div>
             </a>
         </div>
         <div class="teacher-card">
             <a href="lectures.html?teacher=7">
-                <img src="https://via.placeholder.com/100" alt="هاشم الغرباوي"><br>هاشم الغرباوي
+                <div style="display: flex; align-items: center;">
+                    <img src="https://api.telegram.org/file/bot7870588893:AAFshq8Fi5Ikw8GhOpMM3NR-oMr_yF2Vdtw/photos/file_16.jpg" alt="هاشم الغرباوي">
+                    <p>هاشم الغرباوي</p>
+                </div>
             </a>
         </div>
     </div>
