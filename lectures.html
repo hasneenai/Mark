@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاضرات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .lectures button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            background: #27ae60;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lectures button:hover {
+            background: #219150;
+        }
+        iframe {
+            width: 80%;
+            height: 500px;
+            margin-top: 20px;
+            display: block;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>محاضرات المدرس</h1>
+
+    <div id="lecturesContainer" class="lectures"></div>
+
+    <iframe id="videoFrame"></iframe>
+
+    <script>
+        // بيانات المحاضرات لكل مدرس
+        const teachers = [
+            { name: "فل الزبيدي", lectures: ["https://www.youtube.com/embed/1", "https://www.youtube.com/embed/2", "https://www.youtube.com/embed/3"] },
+            { name: "هشام المعموري", lectures: ["https://www.youtube.com/embed/6", "https://www.youtube.com/embed/7", "https://www.youtube.com/embed/8"] },
+            { name: "مؤيد سليم", lectures: ["https://www.youtube.com/embed/11", "https://www.youtube.com/embed/12", "https://www.youtube.com/embed/13"] },
+            { name: "حسن عبد الكاظم", lectures: ["https://www.youtube.com/embed/16", "https://www.youtube.com/embed/17", "https://www.youtube.com/embed/18"] }
+        ];
+
+        // جلب رقم المدرس من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const teacherIndex = urlParams.get('teacher');
+
+        // دالة لعرض المحاضرات
+        function showLectures() {
+            const lecturesContainer = document.getElementById("lecturesContainer");
+            const teacher = teachers[teacherIndex];
+            lecturesContainer.innerHTML = `<h2>محاضرات ${teacher.name}</h2>`;
+            
+            teacher.lectures.forEach((lecture, i)
