@@ -48,10 +48,14 @@
     <script>
         // بيانات المحاضرات لكل مدرس
         const teachers = [
-            { name: "فل الزبيدي", lectures: ["https://www.youtube.com/embed/1", "https://www.youtube.com/embed/2", "https://www.youtube.com/embed/3"] },
-            { name: "هشام المعموري", lectures: ["https://www.youtube.com/embed/6", "https://www.youtube.com/embed/7", "https://www.youtube.com/embed/8"] },
-            { name: "مؤيد سليم", lectures: ["https://www.youtube.com/embed/11", "https://www.youtube.com/embed/12", "https://www.youtube.com/embed/13"] },
-            { name: "حسن عبد الكاظم", lectures: ["https://www.youtube.com/embed/16", "https://www.youtube.com/embed/17", "https://www.youtube.com/embed/18"] }
+            { name: "فل الزبيدي", lectures: ["https://www.youtube.com/embed/1", "https://www.youtube.com/embed/2", "https://www.youtube.com/embed/3", "https://www.youtube.com/embed/4", "https://www.youtube.com/embed/5"] },
+            { name: "هشام المعموري", lectures: ["https://www.youtube.com/embed/6", "https://www.youtube.com/embed/7", "https://www.youtube.com/embed/8", "https://www.youtube.com/embed/9", "https://www.youtube.com/embed/10"] },
+            { name: "مؤيد سليم", lectures: ["https://www.youtube.com/embed/11", "https://www.youtube.com/embed/12", "https://www.youtube.com/embed/13", "https://www.youtube.com/embed/14", "https://www.youtube.com/embed/15"] },
+            { name: "حسن عبد الكاظم", lectures: ["https://www.youtube.com/embed/16", "https://www.youtube.com/embed/17", "https://www.youtube.com/embed/18", "https://www.youtube.com/embed/19", "https://www.youtube.com/embed/20"] },
+            { name: "حيدر عبد الائمة", lectures: ["https://www.youtube.com/embed/21", "https://www.youtube.com/embed/22", "https://www.youtube.com/embed/23", "https://www.youtube.com/embed/24", "https://www.youtube.com/embed/25"] },
+            { name: "ساجد العكيلي", lectures: ["https://www.youtube.com/embed/26", "https://www.youtube.com/embed/27", "https://www.youtube.com/embed/28", "https://www.youtube.com/embed/29", "https://www.youtube.com/embed/30"] },
+            { name: "نورس الموسوي", lectures: ["https://www.youtube.com/embed/31", "https://www.youtube.com/embed/32", "https://www.youtube.com/embed/33", "https://www.youtube.com/embed/34", "https://www.youtube.com/embed/35"] },
+            { name: "هاشم الغرباوي", lectures: ["https://www.youtube.com/embed/36", "https://www.youtube.com/embed/37", "https://www.youtube.com/embed/38", "https://www.youtube.com/embed/39", "https://www.youtube.com/embed/40"] }
         ];
 
         // جلب رقم المدرس من URL
@@ -64,4 +68,19 @@
             const teacher = teachers[teacherIndex];
             lecturesContainer.innerHTML = `<h2>محاضرات ${teacher.name}</h2>`;
             
-            teacher.lectures.forEach((lecture, i)
+            teacher.lectures.forEach((lecture, i) => {
+                const button = document.createElement('button');
+                button.textContent = `محاضرة ${i + 1}`;
+                button.onclick = () => {
+                    document.getElementById("videoFrame").src = lecture;
+                };
+                lecturesContainer.appendChild(button);
+            });
+        }
+
+        // استدعاء الدالة لعرض المحاضرات
+        showLectures();
+    </script>
+
+</body>
+</html>
