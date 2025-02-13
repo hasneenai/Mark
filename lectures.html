@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاضرات</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2a2a72, #009ffd);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #videoContainer {
+    width: 100%;
+    height: auto; /* سيأخذ الارتفاع بناءً على النسبة العرضية للفيديو */
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+#videoContainer video {
+    width: 100%; /* يعرض الفيديو على عرض الحاوية بالكامل */
+    height: auto; /* يحافظ على النسب الأصلية للفيديو */
+    object-fit: fill; /* يضمن ملء الحاوية بالكامل بشكل مناسب */
+}
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .buttons-container button {
+            width: 90%;
+            max-width: 300px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .buttons-container button:hover {
+            background: #0056b3;
+            transform: translateY(-4px);
+            box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .lectures-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lectures-list {
+            width: 90%;
+            max-width: 300px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .lectures-list button {
+            background: #28a745;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            border: none;
+            color: white;
+        }
+
+        .lectures-list button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📚 محاضرات المدرس</h1>
+
+    <div id="videoContainer">
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="application/x-mpegURL">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+
+    <div class="buttons-container" id="sectionsContainer"></div>
+    <div class="lectures-container" id="lecturesContainer"></div>
+
+    <script>
+    const teachers = [
+        {
+            name: "رفل الزبيدي",
+            lectures: [
+                { name: "الأساسيات", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/4820d628-1d44-4852-8e4c-cf848a0a6bfc/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4c881392-ca24-438c-9802-67503af260ea/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3cf94d21-7cc1-4221-af03-e890d48b31d7/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f15b8471-1dd2-4bbc-b15c-6457a2465685/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/06ceebd3-aa2b-43d1-9b04-dd0d37768e6a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d0e1375b-68bf-4741-9e48-462127b3f9e3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ebcb6365-b333-4904-9f3b-a244bf21fc62/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/13ea04f6-4a7f-4c87-b00c-c27d7d4e8fac/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/630ba405-ef63-4edd-8805-b43f5b607648/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/de542718-1b4f-4a53-895e-74bfe383c0b2/playlist.m3u8"
+                    
+                ] },
+                
+                
+                
+                { name: "اسلوب الاستفهام", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/d843f43a-0e18-411e-b5a8-26b82ceac148/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/514d307b-759e-4102-bbfd-80447194f50d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/345bf4ea-80ec-4f47-8ec1-e204275322af/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6e20944b-a22e-45a7-bf44-1a5116c25c13/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/630ddece-aed6-485e-93b2-e82830c9efa5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3ff07ebf-175d-4b18-a6a9-c1241de0c2d9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/816a2be9-d500-495c-b04a-e145018d5518/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6e20944b-a22e-45a7-bf44-1a5116c25c13/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1ec96b31-e81c-48c8-81c4-9ec2a780e90c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2d270190-8a1e-444a-a588-cbb908f75667/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0a0463af-5083-4765-8ab7-ccd59edfed5c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3ba363ba-632c-4144-a336-ed659d3975ce/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a0852f0e-2add-4e6a-892e-702f93c9cdf5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4c4c1cf3-34fc-4108-8faf-08d1c7d188da/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/39c06b35-5182-4271-92a1-836722e85a03/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a42a0c45-46b8-41b6-8442-7561dc7ed05a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/84f83e61-1f72-4329-9053-f657977e3d5b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d0479c6a-bb7f-48a0-ac66-7adb0b1f11f9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c212e41a-799e-4218-9e5a-504aabd197f1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7eefea4a-0526-4d87-87a6-08b88d515bb4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/78b97507-2c5e-4e69-91d8-08adeac595ae/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1a5b4953-628f-4937-a4a1-ef3c814dd212/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3c02cc72-315a-439d-bf0c-56884324445f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0b749cf6-d17e-497d-9f44-221a2f9a0fe5/playlist.m3u8"
+                    
+                    
+                    
+                ] },
+                
+                { name: "اسلوب النفي", videos: [
+               
+    "http://vz-99e5c202-ca5.b-cdn.net/49fb0603-4a7f-4f73-8c33-a6ac93f3875c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/97f908d7-7d73-46e5-babb-4b87b73d5d93/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ae5a8588-773b-4ee5-9faf-92408b4c3c13/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5e37cf33-ea37-46d8-887b-ea77ba448725/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/daaec320-c481-467a-837c-d7f2144850a7/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9f5ff913-c160-4372-ae52-4fa497959b22/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/804c3305-aee2-4a59-80b2-58ecdd6467d1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e83385d8-1c9c-4c54-944f-ece5833b8edd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0de203f1-ce62-45d6-86b9-cee5599bdcc3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4ab79ea2-47ef-4206-a524-c397ce6ae2e9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/bb50f20d-245e-4440-a6be-c716ae53e31a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/376574a8-b1cc-47bc-9904-d4e7231c2c76/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/df6b86e1-1f4f-4b9b-84d1-c08a019e0916/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e21527df-e084-4be6-a174-5e7124ab95dd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/88aa5c88-2c89-45c9-9d16-4ec831cca40e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/46577446-0909-43ec-815f-5ee7bf35b802/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/68b735c6-9744-4505-bb9b-03cf8f73a627/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/68c5ec19-6ad9-457e-bfea-d677771b01f8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/19c35bb8-b72e-4b48-8ca9-1e6df0b9ce6e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6572787a-f17b-4aaa-915b-4c7a18525195/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ad97b3fb-b01d-4580-8b30-40594cc4204c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/efddecdd-7d72-470e-b63a-1cf30748deb0/playlist.m3u8"
+  ]
+},
+
+{ name: "اسلوب التقديم والتأخير", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/7a2c51ae-5d66-4f54-b0d7-b7b5ff1bc1d0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/abe566ad-437d-477c-bc94-045cdcb011bf/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/46180492-41df-4c54-b179-29b81623250e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/263944d0-9f16-45d8-b29e-e634429a183c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/eb2dbf11-3a2c-41ae-b977-d6395eda562f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8cac7c6c-2b06-4f6f-a8d8-c08f16f9a0c8/playlist.m3u8"
+  ]
+},
+
+{ name: "اسلوب التوكيد", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/b0dbd9f5-1968-4c26-8eb1-81b4629e8705/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ab1c19b0-ada4-408f-91dc-2b37a490cb6c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b75f3535-bb47-4283-9853-245a043524c2/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a6b01cd7-87c1-424e-96e3-5a2b8fd9bd14/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2ab4a60b-6a4a-4887-9241-b4a749e14d63/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5eec107a-8e77-43d4-8e84-1e8d18ace0a3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4161d4c6-da82-4d8b-ab33-d979ad187a11/playlist.m3u8"
+  ]
+},
+
+{ name: "اسلوب النداء", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/1aaeebf4-92e6-4b97-99e7-a4c99c8d5409/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/da31dfd4-e731-4975-b21d-ff146efcb2d1/playlist.m3u8"
+    ]
+    },
+                
+                
+            ]
+        },
+        
+        
+        {
+            name: "هشام المعموري",
+            lectures: [
+                { name: "جديد", videos: [
+                    "https://vz-99e5c202-ca5.b-cdn.net/2063062d-0002-4494-8e13-6f18385e9ffb/playlist.m3u8",
+                    "https://vz-99e5c202-ca5.b-cdn.net/2063062d-0002-4494-8e13-6f18385e9ffb/playlist.m3u8"
+                ] },
+                { name: "الشروحات", videos: [
+                    "https://vz-99e5c202-ca5.b-cdn.net/2063062d-0002-4494-8e13-6f18385e9ffb/playlist.m3u8",
+                    "https://vz-99e5c202-ca5.b-cdn.net/2063062d-0002-4494-8e13-6f18385e9ffb/playlist.m3u8"
+                ] }
+            ]
+        },
+        
+        {
+            name: "مؤيد سىليم",
+            lectures: [
+                { name: "الفصل الاول", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/9301b680-620f-4a5d-b175-6956b000842a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/68beab01-6bc6-4ee2-b883-cbddcf6ace9b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0a65ca56-d520-4196-a8c7-dfa5a6e258e8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ff9f9a9c-46cb-4597-a164-c515adca510d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/cce7d313-9b6b-4581-bc4c-00ca42fc7de8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d3892586-3a70-4c31-800c-63d36b91a4d6/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/920b0140-bd0d-4f17-b4b3-a23054aa0503/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4f1488d1-e81e-4a52-97aa-5f243c769941/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f4ab5581-68b2-4561-a9a7-c548e9416706/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c2320ae5-265e-4c53-963d-cb7fbfa95980/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e4d20c99-d8fa-4c07-acad-66c0e3003269/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/75366068-d94c-44cb-b0a8-3021f63fd080/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1d627481-d3de-4c8b-93fe-a5e371e4b70b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dfca6090-95ea-4fe0-acae-b10a1461e03e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/47bf7c42-c438-4745-a52b-6bf38b7ffbb5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/cd7eef84-398f-4aa7-9639-74d50008fdf1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5c487980-ce3e-4f7b-80a4-fcd4042e5c4b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c11ad341-ca22-42a9-8ac8-b36fd31271e2/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/214ff823-9a4d-4bf6-811f-bd3ed9bacbb3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6fb61b90-56d8-4ba0-8dbf-ea027ad96a7e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/692a9380-e181-47f0-8436-debf03cd0f0b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b159e10a-cc63-457e-aee2-5bc22c29b432/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7267e628-f269-441e-8b1d-c81b7fe4065/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dbbd6e46-a948-49b9-8dec-d661b65b7f7d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1bc13266-398a-4d43-ad19-9f90e03cdd93/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7eda2f20-782c-4b5a-bcf0-d1573018e740/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b97ab075-c1a1-49cd-bc95-2e3bf9b45bfa/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/eb78b1a4-bf74-470f-9323-ec9f5412065b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/81bba695-0ab2-4471-895f-7c59da408029/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/fa14b5fe-0c0f-4128-ae77-d9fdbaa89911/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f076cb1e-635a-414f-b519-6c8f38a61fa2/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5823b8db-445d-4cd6-b07c-9eb8a5bf7c69/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6d8665ee-89cf-47a8-8a03-1e031dfe8aaf/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d1070f53-f1a2-4097-910e-83bbe74c4ff0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/24af9384-0460-40db-b513-48f339460b5b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e2c2c6fe-d3f8-4426-a463-e3d5f68f4233/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/21906cac-05b0-4ef0-96d1-aeb1730ac3fc/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9bb4911b-841e-4982-a7c0-8a45f762a2bd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/92d77af0-004d-4f2b-a6bc-8c85660e6b2f/playlist.m3u8"
+
+                
+                
+                
+                
+                
+                ] },
+                { name: "الفصل الثاني", videos: [
+      "http://vz-99e5c202-ca5.b-cdn.net/f5a495e3-08dc-43d6-a5b4-c1081928ef3a/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/bcfcf855-0509-48b9-b88b-69111682168b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/55cf648a-114c-403a-9a03-817ea56b4d2f/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/b8538abb-9494-413c-af36-e75e2383adbe/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/5bd75aae-96b5-4431-968b-a2495a81efee/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/da707547-c955-4b8b-8880-d6d4e7bad4cf/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/dfb303ac-716c-4779-b09d-4f3811666902/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ef92a491-39c8-4ae0-b6ca-437a6d35b3d7/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/a5ea720d-172f-4946-867c-2307f3a8e18f/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ffc690c6-b2d0-4997-b6ea-e966c1d71270/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/426214e7-4576-4fcb-9cb9-93e29bb595cd/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/79223e12-e0bf-4081-9984-9abb0c07ccc6/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ad83c1ce-3f74-417d-8cd4-1a3eb44b029c/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/9571d455-8e9d-4dff-9851-ba880d383578/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/845ed6f6-f642-4829-81f6-34f8adfe58ec/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/452026aa-3121-4706-b1e4-480e29e52437/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/37ca8de4-4351-41f8-b1f7-6f3c6e4d7c2a/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/321db2f9-23e3-4460-9328-cb581923407e/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/84b4c1ad-a439-467b-b1ed-11a972bb8898/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/5b84bd5e-f9da-4ed8-9356-b7a1cf4a46a1/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/6cac6557-eeca-4f71-8283-9525460c718c/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/a18521c8-4eaf-4f04-9051-ddcbd3ae0846/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/903426da-985d-4fa8-b527-81d452d16399/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/55428d7f-babd-42fa-bf66-0e0e32ca3c23/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/07e1391b-0193-4387-add8-bd6f923691ed/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/2e13e956-a98d-4f62-9353-ff0805a06b1c/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/a959aaa7-4f88-4446-bf73-3479eaf90f76/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/24f2d5d7-5765-4dd2-b4b7-7bd3b22e8a22/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/559ae306-f2eb-4830-ad59-93bf1a2d2ca8/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/7782abc1-e2f2-4f78-b45d-c2c3d451eccf/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/143b1ff9-0f31-40fe-ab14-b5a0ac67140b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/0baa6039-1fca-4c03-819c-32fed86e6610/playlist.m3u8"
+ 
+                    
+                ] },
+                                { name: "الفصل الثالث", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/eb1e76c5-7a11-4ced-8b6a-8ef392e393eb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/aaac0678-d321-456d-a59a-6f7afda51ded/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5e8997be-9c1a-4ea3-9dd9-084a542018ec/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e1882def-c6f3-4a48-a1bf-0484a806625b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/df7d4be6-3591-4afe-94b8-b3281bde0acd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3b6687ae-e058-464a-826e-83d2e938a397/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/066a7a55-758a-441c-862b-2f25a0cd55b4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/759b1f4c-c3a6-4faf-ab3c-a47167505847/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c68301c6-8291-428c-9258-c6e8d30b0116/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8739c044-ae2d-4592-bbbf-eb902da1b57a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3a8424f7-0d96-40de-be10-9bcf980dcc1e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e759fe81-7c08-47da-b66a-978aa39ef532/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/90ef86eb-9a57-45b4-9df7-08bf30fffdc1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/fb17f8d4-a730-401c-8fd6-54ebd135f04a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/309c289f-5fbc-4107-8716-6caa177d6c50/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6eb405fe-e24d-4ff3-ae5b-55046581954f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/842570c4-f4c3-4e92-ae01-90f2743d852a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b1b27323-f4ac-4c32-b8ca-3f099b8bb77e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6f77125d-ce77-4ce7-9f39-c21f5403c3f3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dc93ecbe-6d6b-496e-9628-c02fa8432644/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dc9d4799-d904-4ffa-a691-c93889efde5d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/43477d51-1697-466b-806d-55a6727bbbf6/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6fa0ee66-4493-4cea-8f58-98103de50b75/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/90d36c8c-0d5a-4121-ae4a-8dc9c3ff14b5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b92cc2cc-4d77-4176-8516-592cff9bb383/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/68bf49c4-d8f1-4cfd-85aa-e74094e01c20/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/68bf49c4-d8f1-4cfd-85aa-e74094e01c20/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3decedec-6289-4a74-845f-c062201ce929/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/717df835-5a38-4c77-8038-7706db956d87/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9a170edb-d6c4-48e8-bb8f-8d14e998f660/playlist.m3u8"
+  ]
+},
+
+                { name: "الفصل الرابع", videos:[
+    "http://vz-99e5c202-ca5.b-cdn.net/dd463c2f-8d11-4979-8530-b99fa0f302b8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d24b650f-fbd9-4160-a7d0-5307da2f33a5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4992a0fe-3fa0-451c-acdf-f8168f25b63b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6dfb41c0-e39b-4e1b-989b-71a5fdcf0662/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9f31ba42-8103-49a6-ba36-c8c162e06fb1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dbcbcaee-d4fa-43d9-87bd-9d81064b8df9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/30518254-da19-454e-821b-abc30a1a7efb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c9327b99-6d8f-4fac-b1ca-db5105179c7f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/80e52230-258e-4c73-a700-7d187928abf9/playlist.m3u8"
+  ]
+}, 
+                { name: "الفصل الخامس", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/27d63fbe-c09a-4145-894e-5535bf3cda45/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/647f659b-edf3-4ba8-a5b1-eb5fd99c1573/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0f97eeac-0fcf-4711-9764-20c405003a4a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/06b23d8d-5677-46a3-ade8-3b41591a1227/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a6a413c8-266a-4455-86d6-40c6e7f95c8e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0f97eeac-0fcf-4711-9764-20c405003a4a/playlist.m3u8"
+  ]
+},
+
+]},
+
+
+
+ {
+            name: "حسن عبد الكاظم",
+            lectures: [
+                { name: "الفصل الاول", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/e147199d-5538-42ac-9d94-fc50a166b032/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/76e65c7d-8592-4947-8223-ab4b74f72ce5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/bc8cdc20-4f1c-49cb-97a8-7f6941643464/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a810cc32-2737-4f8d-afd9-3456988a191e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ef559fc6-048f-449f-8448-3bf2597d9260/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/25e5e162-a4f5-4c31-95d9-b2809ee61349/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e4c5f133-508e-45cf-9563-d59587358961/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3fc9d1c0-e459-4754-a8a2-bad636803c38/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e5d79730-9760-4246-916c-bc540d25bb72/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ef550c92-18a8-4665-9af1-1651aae90b2f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f772ad1f-cf34-421e-b740-215c4a3b15cb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/417d2d85-02bc-4e6b-8283-487a64fe6da4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f34fdb72-07f2-4177-87e9-83e8287b1004/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1ae0c8f2-e8e4-45d6-9de7-284de15cecc9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f71f9ca0-a77a-4f90-9240-0392d458aed0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/02b9507d-96e7-470d-890e-c88de1f39cec/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/751793c5-d91f-454c-a523-8933731c77b2/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3987dcb8-cadc-4ec3-b259-f9eb15030814/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6b6ce7de-1961-4911-afa8-b03d793ad28a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/cc80e374-c5b2-4217-a2e5-8b854c34d32a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a2a1f615-0d74-45ff-adce-63ded8313113/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1e9cb597-9f66-4e11-a5ca-7cfbef2ef773/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/17dbbe6a-b56e-498c-a69c-677a1b724469/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ef4c52a5-52e5-4ec8-a804-a93e1e681176/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/cd569d0b-c2c9-4906-86ed-07a8d96d4364/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/426562ad-5d67-44a4-a0a7-295be56bdc70/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4ba6bccf-0a34-44ec-8730-5151f432b58c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d2959d5e-25d7-42e1-a2cf-6e3573db3f78/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/22177ae5-8b71-4df3-8c85-b20cc43a1189/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/82a96772-c9e6-4ab1-a791-7f0fb3315d26/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b74ea78b-8997-49c5-8e78-29f137b80776/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ce580936-bd90-4986-9beb-6a7181d8c28a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/99f01461-3368-4dfb-acf0-4c4ff35d5d14/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8d88b4dc-5912-40d5-bbf5-ac061067b93c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e5a99cb7-6e67-4d01-8146-8b402e51cd3c/playlist.m3u8"
+]}, 
+                
+                
+
+                { name: "الفصل الثاني", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/0d572771-4a67-4ca3-b506-37f8bade7adb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/10410c62-19d4-4a7c-af25-f00120c4d25f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7ec27870-43f8-4132-85c0-303dda83a4fc/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9f9d68a3-f9ba-4389-a54d-d77f307c4132/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/e1466621-5920-46e7-8b27-6ce4c702a246/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/00b4ccc1-a000-4314-ae8d-6d09814e1bb0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ad9497f5-272e-4271-a40c-886a8de94590/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a1cc0d56-974d-4e2d-909b-61c6eb6a20e3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/03aaa843-1065-4e59-92b2-791690c0d3ed/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6a2950b6-ecf8-4adb-9703-a9c5c40ec825/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1ab5e1ae-af7f-4675-a7ad-b8912b8d41cd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/74289c89-7ce6-4b7e-b239-db3672edb462/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/20109594-4be8-4c2f-bdcf-0c5c1f92d7d0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/acc1a843-f219-476f-bf9f-932cef52da14/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/800c3a2e-d576-4394-b385-5cbf1084da33/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3cf1bcde-cdb9-4173-a4f3-e374e32d8956/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ac31c5b5-cc94-4425-8e87-afbea7ca1d9a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c0d19c59-2179-4066-89a4-5e8ab53c0ac8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0f8a06a0-8cd0-4605-95a5-9d1a8c58668e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ba7da99a-b3c0-4733-8c0b-cfe93787ee13/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3c95fc42-c4b2-42fe-844c-c854481d444c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6bbe6bc7-c0f6-4fd9-8ba7-33b653fdce54/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d0f529a6-c060-4ad6-ac44-5df3819e8bf9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/61aa0106-b88a-4f52-8591-f4b1227b0fdd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d6dcf973-f17c-4f09-9be2-30b2fb43e006/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/358d78d1-87aa-438d-bf9a-d0f18aae4386/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b5978658-2693-4b8f-8246-b48d2feaf9ae/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ff0d1458-fa6e-4fd1-8510-17ce76bc9276/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/64594326-3780-49d4-931c-f0a9f83f6ea6/playlist.m3u8"
+      ]
+},
+
+
+
+{ name: "الفصل الثالث", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/5d0723f2-eafa-4fe0-95c4-1db1f01e1c6f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c69d1163-7735-406b-8b6e-bb0fab08d5f8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8ad99075-339b-4ca9-a77a-c0128c770c85/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7a40f55f-4431-4f51-9acf-0f8767bcedd3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9cd59afc-78a7-4c34-b203-b5ebec35b523/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5ad28956-410c-4ab1-9d04-488d7ee5e692/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/57c756a0-9b0e-438f-9218-0896b58a3a6c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0d07b7e9-67bd-4e50-873b-ffbd7c0a6125/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5823c733-b1d4-4fd3-a1aa-e341ef0ae26c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/aa63b72b-04ab-48b2-907b-ea7cd51b720a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c2b23ef7-8df3-4b73-af6d-281dd3342223/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5af2ff8b-1ace-436a-a00c-e2a545145034/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/96e68c63-f0ec-44e3-9155-0b55a5f26d88/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/707ee5ef-4342-4468-937b-8829e0fdd7fb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/1ec908e2-91c2-4e8f-be52-a8d87dce9adb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/47a65325-b3eb-4094-99d4-d8c00147cd60/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/164b5fc3-e4ba-4866-9695-7469ca7382ee/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c974cab8-4766-4f5d-9660-d006cde12f57/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5a0ee99d-b4f6-48c4-8ed8-79b905f4b2eb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0d8228ab-a1b1-471a-9839-9ae8ffb2d093/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/60affddd-7ebb-41fb-935a-364be8000477/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/46526f81-5047-4019-b892-8cd7574432d9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dd973422-9bd8-4e0f-880e-7d96682208e1/playlist.m3u8"
+  ]
+},
+
+{ name: "الفصل الرابع", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/eb967892-d4a5-417a-bd6a-71d6a57c95b5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3485fe57-0295-478c-b243-c8e2510c6530/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/27ecf172-3224-4d20-82f6-01418f67186a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/55bae4de-41e7-49db-a645-0797683d4601/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c41ccd4a-093c-427e-b18e-37fed37ebcd9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3219ae00-8a67-4736-9d87-3861b3a45ecd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/465ae32c-8c61-43c8-9d7f-5b0c18b4f7b4/playlist.m3u8"
+  ]
+},
+
+
+]},
+
+
+
+{
+            name: "حيدر عبد الائمة",
+            lectures: [
+                { name: "الفصل الاول", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/8f6f69a3-112b-4e4e-9d0b-a7aa2d3ff9e8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/749a4a33-f27c-4859-9b10-fd6e3053558b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3e5cb5ee-5d88-4903-b3cd-2683a38307d9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/897b13b2-7a21-4544-9730-9e6a35b5f421/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/108f1c68-5b5d-493d-9019-c6f46d6b2ab8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6ed2abd5-1d44-405e-b6f5-ee879edfa656/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/87b4d89e-04cc-419c-bb2f-7122c322beab/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/943d17f6-7154-4466-a6f6-acfb9bd51ba3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/fafc7036-1ab2-4e75-8405-600718a35071/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3a2ef061-4893-44e1-b959-7734dc917f2e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/02d3fe32-0bfe-4c33-9a82-37d1b842d056/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4eab7e14-b01f-496e-b7c4-3c1609ae5f26/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/61d26913-f56a-48c8-99ca-e5f2eec74030/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0a9a624c-dee4-4176-a28e-d90773d641ff/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a217e49f-009b-4a48-bc88-0f378c30c33d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b76b4312-d66d-47fe-9d31-e41ef473d86e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/22581eb6-0e4f-47ed-8234-be5d2997ca5d/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7147fc03-94dd-40f3-817c-07f691f03c9e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b82c5ddc-46b2-427f-9792-7eb98aa5cf72/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/58ce49eb-369c-47b1-9b94-565a15eb5d75/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c6734573-8b38-4106-93a0-83e4c03f7400/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/04d06faa-453e-4325-8aa5-52d752b0ba6a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/52f73a9f-ccfd-41d2-be7c-584ce95ffa5c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6aee0fbb-ecda-4bf9-8b05-7aed3e67df00/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/97543d46-68cc-42cb-9eee-729f79f90456/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/43ee5b0f-5a26-453a-b985-5ff8dce472fa/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/807768fb-cd9e-4713-a4ee-a61a5bec1d7f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f9993615-297a-45f2-909e-2a032a4a6a3b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b6648342-eb09-43f7-a273-c004e8f5d257/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/362e2b3c-752b-4c2f-a4a2-56ba108bada7/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a847d812-9f93-4807-a62f-108bd8475bc4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8074423a-cb7d-4fbb-8fe1-91752c31c184/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0b0a08e1-fa08-4482-b97e-2f4bbfff5d18/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/65607897-d2eb-4016-b4dc-559aa412cc7e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8407587d-63ad-4377-9caf-e9b1f6038c3a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d76f5ddf-945a-4432-822a-62ba0b85b433/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/00386bfa-fc2d-418b-8a99-9b368b8dec37/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9c0748ef-1c0a-4ad1-a60a-89ba9621bfc9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/619b4de9-6dc7-4b3d-9df6-89fe9915e6c4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a278391a-06ea-4e84-8919-85125f3faecc/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/82be7ec3-12e4-41b0-be0b-cbc920245463/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2d1ea0aa-779a-48fc-abdb-4864a16abce7/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f6f94b74-da2e-4972-804b-d741637dafd1/playlist.m3u8"
+
+  ]
+},
+
+{ name: "الفصل الثاني", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/5213fa3a-1e28-4cdf-8cf7-69bccaf1329e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/6049f600-ab5a-43b5-adb6-646b5b95eeb9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/acabe40c-c6be-41c3-8089-bdfa8c223320/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/efafe3f2-aaf1-49b1-932b-bb440ac5028b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2748279a-b572-4c7f-a816-11d1ffb7e329/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0e7aaad8-51db-4da5-a2b8-14bdbeadc0d5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/066a7a55-758a-441c-862b-2f25a0cd55b4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/63008b19-60fa-40fb-8b11-2133319f3134/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/bdbc2f8c-f59d-415d-b585-8a5b50ff25dd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d8fe0b4e-7dd2-456a-8aa4-8ac66f703f16/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f9990f8e-dfd1-4e54-9ae5-a73cccb39979/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/495df71a-529e-4599-966d-8d416d785959/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0dd0ff69-4133-43a1-9edb-dd9071466377/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3edd96b7-86ce-4d5f-8ea2-624e14d185aa/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/377f2bd8-74fe-4d5f-8f3d-b52a8c90a0c5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f25d207b-c00b-4eb3-9f29-cd0361c0d710/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/12bda3c9-eec6-4ea4-8b1a-1c5108bae8ef/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/84991885-e306-43fa-a8fc-8cf8558f95d1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/efff3497-9277-4806-9e1f-ad3310f6fa41/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f3b6dbcb-e0c1-4a86-9732-d21e595d1004/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9af978da-e605-4cea-bfe2-5e4fd5b803c4/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/aa90173a-fd3b-4833-8097-992f2e41e3ca/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0305f58b-fef9-42a3-8d52-ab0c29018710/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/72355207-2b91-4a11-be5c-320b6549dee5/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/39ce7e75-7d4b-4759-8e9e-683f0aadf633/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/81655e7d-33cc-47e1-8130-c87447d1bbb8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a6763778-2c72-45b7-87dd-e45f70a26bd9/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8ce7be0a-f802-4f51-b10f-218db5e963ec/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2402f351-fdfe-41b4-90bc-db3be1989b66/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/0974bd30-5a17-402a-9fcb-33d3c11d01dd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/609a749f-4662-4154-85ca-6f1846c57432/playlist.m3u8"
+  ]
+},
+
+{ name: "الفصل الثالث", videos: [
+    "http://vz-99e5c202-ca5.b-cdn.net/f4d2c702-f9ce-4e59-bb42-06b829f002ce/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ae7cf00d-a3c3-4114-9c96-3ebbdd975d58/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ee1205db-ac69-42c6-ae29-9f444c42b75f/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/c79bf7a0-0403-471d-a761-670c1bac2d7b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2e84125b-a03a-443a-b7c3-ac8477adc6ef/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/09c82875-7574-4661-bdef-4daeca1335a1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/b146814c-1ccb-4bc2-a26c-9c68e5949dde/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a256c575-7a56-4f16-ba05-c37b6d1513f0/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/72313da5-d4a7-4d76-a441-afc848eba174/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8114c53b-cdee-4b32-88ba-5923115ca477/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f92ae804-fe20-4aad-84da-9c1bea37fdd1/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/31dce837-e046-4c93-891b-c2a44566178c/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ca0f675a-9557-4b2c-9d22-3e2864e828e8/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a6cd1e8a-bbda-4251-b471-572fdc2edefa/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/31c43d94-4daf-48a3-a379-ad2b28e5067e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/9573fcbb-0568-4701-94e9-1c3034ea51fa/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f1d182b1-f1b7-4615-870c-e3460f345cea/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/15bdd0c2-871a-48b8-9c59-4f2b208987b6/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/410339eb-9302-4515-9eac-cb3d5626ba96/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/4b0c7d1d-a95f-4fb9-a802-e1eeb0f02fed/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/ac75a9ba-6a67-495b-891d-bfaef697349a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/36131719-5294-4ab8-8690-92dd00812dc3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/aa3953f3-4f47-4087-91ad-a13f7d4dfadd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d8e1ef11-dff3-4a30-b221-48c87b22d4f2/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/76bc4f8c-186a-434d-b809-b27eedd78143/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a36b1f6f-a1e5-42b5-a2f6-2b6a0572bc24/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8641f997-37d5-4855-9200-3bc3f027a421/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/d4010996-2f9d-4db2-be19-37adaa091846/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/86335354-3e6f-4060-baf3-a92a95dcc766/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/8b8d41b1-3a28-423d-9b3d-c00a33255053/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/996a10fd-0391-405a-85b2-c94310ca0ebf/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/fc01d625-75f1-41a0-b765-d64d967c076e/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2aa153fe-ed51-4a36-b508-b97823f014bd/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/326b2a98-677c-4525-8312-3226377aba03/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/3820c8e9-bd17-4184-afac-3acf537af743/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/25813d43-6fc9-4fbb-9726-c4a9e1601a47/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a59a4526-0abb-45a6-a3c9-651026408720/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/cc624dad-8f91-4be8-8705-62700c7c9e5b/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/f44e78a3-3233-4ccc-863b-e108f750ee77/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/dd5d694c-afe0-45d9-8996-0c665cc7c813/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/454efade-9e88-4e21-b8ea-ac29d6c19da3/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2611e82a-82d4-4413-a8f6-cdeadf604309/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/7d5d5f14-70a7-4a30-afda-205c2e1ee23a/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/a34062fb-6cbc-44d2-ab46-c94a11fb20b2/playlist.m3u8"
+  ]
+},
+
+{ name: "الفصل الرابع", videos: [
+"http://vz-99e5c202-ca5.b-cdn.net/c7621d71-ca6c-41dc-9313-5f9b2885e173/playlist.m3u8",
+"http://vz-99e5c202-ca5.b-cdn.net/da899dfb-d8b2-4c57-a20a-11ab7b9b7ac2/playlist.m3u8"
+]},
+]},
+
+
+
+{
+            name: "ساجد العكيلي",
+            lectures: [
+                { name: "احكام التلاوة", videos: [
+                
+    "https://vz-99e5c202-ca5.b-cdn.net/0707b01f-bf4a-4079-829b-1802fccd42c4/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/e3a03f56-3495-40f5-bccf-c52576ce235f/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/3f97ea15-c216-49cc-a149-3a242c7f4e54/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/4911d9a6-5fe2-4cd9-bfea-9591fc82198b/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/4911d9a6-5fe2-4cd9-bfea-9591fc82198b/playlist.m3u8"
+  
+  
+ 
+]},
+
+{ name: "الوحدة الاولى", videos: [
+    "https://vz-99e5c202-ca5.b-cdn.net/ba3d633a-8113-40b5-8d7f-1587464dc99d/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/5217224f-7a43-4307-b259-85db549aa5ae/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/0cd3f218-f091-4b7e-980d-a01c34115e52/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/6953b307-f288-4149-a355-21be3a7997d7/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/d7189415-d557-402f-97e1-9b6441970853/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/89e0f47f-5892-4a08-b09c-f40dc116f7ed/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/5741f6ab-111d-4ca4-b12b-92e0d2fc7381/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/b226b50c-5828-4036-b512-d684f1a43c38/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/16b241cb-40f3-4751-b8da-780fe7d8572f/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/d5e94228-c986-4aba-8e27-21887d9ba206/playlist.m3u8"
+  ]
+},
+
+{ name: "الوحدة الثانية", videos: [
+    "https://vz-99e5c202-ca5.b-cdn.net/58bf9d8a-c51b-4507-930d-61cc4eafcc51/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/72179feb-72ee-4a12-85af-59298372efdf/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/2c8c0d7e-c9ea-4693-a2d3-2b59ae553242/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/26e54bc6-52af-4023-ac45-5997827f8a77/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/8f9c6e33-330a-4386-b9b5-baa1306bdc24/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/966fb914-c0e8-453c-bd3f-f64bc63e4942/playlist.m3u8",
+    "https://vz-99e5c202-ca5.b-cdn.net/5e90bacb-629f-4188-b65c-f978f9ef3770/playlist.m3u8"
+  ]
+},
+
+{ name: "محاضرة التقوية والاضافات", videos: [
+ "http://vz-99e5c202-ca5.b-cdn.net/27971144-c0b6-42d9-9ad5-6d32e4e513c3/playlist.m3u8"
+]},
+
+
+{ name: "الوحدة الثالثة", videos: [
+"http://vz-99e5c202-ca5.b-cdn.net/0c056621-0ff5-4a15-96bc-0220bcec0d25/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/039f866e-0dde-4cf4-9a9e-fd12b6120250/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/63a4bec3-44c4-467e-8737-6dd7e6689685/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/2063062d-0002-4494-8e13-6f18385e9ffb/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/493a4ebf-e5b8-4012-8ba0-f288cd732490/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/5fd4299f-480b-4a93-ac43-2b583e9ec2ee/playlist.m3u8",
+    "http://vz-99e5c202-ca5.b-cdn.net/754d6abc-2b25-4691-a935-864dee9a2aae/playlist.m3u8"]},
+
+]},           
+
+{name: "نورس الموسوي",
+lectures: [
+{ name: "الفصل الاول", videos: [
+      "http://vz-99e5c202-ca5.b-cdn.net/ee147fd7-1c03-4266-a949-f6138be39490/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ad3510c4-56f8-4397-a4bd-0a229787693c/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ef69b531-c616-4b44-ae6f-202964bc245f/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/5862af43-66fe-454b-94ff-1a654d7b361b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/f91f2ff9-8a48-4ae6-b0b2-bf47cfef5f84/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/16b56542-8dc6-4bf9-9b39-2d76c399855f/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/a5928440-e11e-413b-9076-52fb7a817993/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/688bfa55-8ee2-4897-8125-6a3b777f32a4/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c7bc7d65-d90d-4615-8bd4-dd4d7e3d06f3/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/df8c790b-8413-42ab-9001-09fd96aaaec9/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/d584d086-fd66-4442-8069-53ba8238b2d7/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/89734f40-64ec-45ba-a930-f8813b750eb1/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/3b815782-d3a5-4bd2-99b1-ee6b222bebda/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/7e25e087-1017-465b-a09c-0a634f9a32f3/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/9c7ca830-2435-4d5b-b2dc-21c190c4db85/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/79f0399f-5405-48b5-9f69-09936cc52550/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/19609bac-76a7-4eee-a9bc-bfafeea332a9/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/b4b62ff2-4a64-4d26-93e7-a7c02045369d/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/af6b5c10-690e-4a0d-992a-364104cba7fb/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c49d6be1-8deb-4964-a942-a200a7517db4/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/e44137fe-2e8c-415b-bfec-044f10722202/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ebb102c9-7ce4-4482-9788-f84eae0b3eaf/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/768517c8-81ae-422d-8cfd-e1ff8d2fcc9b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/0d217ed2-711a-4f47-8409-665f9a769ae1/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/2373f0de-6de9-442f-8e80-57f9567dc8d8/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/1f5292c4-3a07-480c-baef-70f8a2d565ef/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/befb6d82-1f80-4c15-bfeb-4b1eaabc663d/playlist.m3u8"
+    ]
+  },
+  
+{ name: "الفصل الثاني", videos: [
+      "http://vz-99e5c202-ca5.b-cdn.net/929f4ea3-0f22-4882-80ed-567f496585e0/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/3fa68150-4c17-4cac-97ad-9d21482944a4/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/77526522-b475-4ab3-8b19-68cdd09d52f2/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/e46da035-de58-4460-abc7-df600a265af2/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/e442a9d4-653b-4e7b-9a93-5b29fb2f481b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/31b056f6-4bb1-4514-b42d-425939e6dcfd/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/425f51a3-f62e-45ab-a9b3-4b7ef580e332/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/bc0e11c9-a7b6-4bc1-bef1-1330a9f7c07b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/096e9aa0-10d6-4554-baa5-1916c8cee18e/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/734d1676-fa2d-4dcf-bffa-596d4b3831ad/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/79b9c8ec-ca16-4fa8-9122-5cc52ff84528/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/b9f022c3-9563-4256-964c-792e45bc9333/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/91b84af6-140e-4951-b166-b7073960e55f/playlist.m3u8"
+    ]
+  },
+  
+{ name: "الفصل الثالث", videos: [
+      "http://vz-99e5c202-ca5.b-cdn.net/880776e3-5a98-4046-aef5-f30cf8da3ba3/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ce9dd4cd-aab5-4feb-a711-d7b221b12ab4/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/d0340407-9674-4f3e-a11c-4b4e9287c0a0/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/b1477519-d769-46e5-9534-fce0b4967f2d/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/4b16bbb9-12e9-4896-b344-7d2fedae8783/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/b94e8b78-e302-40b3-afb4-a9f7f293a31a/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/e2aad6df-c596-4be8-91e0-4b2da4f8f101/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/8bdccf27-2ba9-498f-a89c-7ea458443568/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/d50a07e2-6a20-4f49-8d84-6c3f776316e0/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/115cec90-eb83-4d05-b3a1-1ee987a5b247/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/808fc259-5938-4c30-938d-1b3c9d6d4e9d/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c60cca62-73c1-4287-b0ba-2640fc081147/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/5d1d7e96-aad4-4bc7-8bdd-0a6e14a4dffb/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/48f7a911-01dd-430f-929f-236fb75067ef/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/6f9b76c1-cc19-43f7-87c1-7b3812d8fb6f/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/98ecd8b3-e12a-4403-916f-dfa57c8e55dd/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c8e3e59a-1a3d-4645-a51e-c4a8c3600f04/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/fca46a23-5781-443f-8949-538426f955c9/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/72071fdc-7623-4aa8-ae51-f7141667e6c9/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/9e9152e2-fe97-4566-ba67-bd68a628a534/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/44566ee0-64a2-441d-8a60-92f4149a8df3/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/d5f8cec9-07e1-432d-9189-77693153d807/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/8d034b32-333f-421c-9afd-e0a892b5ea7b/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/ac3c1ae7-b99d-49fc-9afc-00cd655e66ee/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/547efa6d-c5c0-43bb-9cbf-c89c836ff4ad/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c5c9e6c7-2899-4d1f-8b5c-fb31f44696ea/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/fc4ceb96-f27e-4464-9a7b-64a4a31ca931/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/c9cb6f66-94af-46da-8fa7-e28c3f357098/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/5996450b-40c3-488b-8d13-bd472df5ce1a/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/96930c27-f6e4-4206-90e8-2e7e1bd9e363/playlist.m3u8",
+      "http://vz-99e5c202-ca5.b-cdn.net/2be3fd5a-72a3-403d-ae06-65c6cdd9af81/playlist.m3u8"
+    ]
+  }  
+  
+  
+]}
+
+
+
+        
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const teacherIndex = urlParams.get('teacher') || 0;
+    const teacher = teachers[teacherIndex];
+
+    function showLectureSections() {
+        const sectionsContainer = document.getElementById("sectionsContainer");
+        sectionsContainer.innerHTML = "";
+
+        teacher.lectures.forEach((section, index) => {
+            const sectionButton = document.createElement('button');
+            sectionButton.textContent = section.name;
+            sectionButton.onclick = () => toggleLectures(index);
+            sectionsContainer.appendChild(sectionButton);
+        });
+    }
+
+    function toggleLectures(index) {
+        const lecturesContainer = document.getElementById("lecturesContainer");
+        lecturesContainer.innerHTML = ""; // حذف جميع المحاضرات قبل عرض القسم الجديد
+
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = "lectures-list";
+        sectionDiv.style.display = "flex";
+
+        // إذا كان هناك مقاطع فيديو، سيتم عرض الأزرار
+        if (teacher.lectures[index].videos.length > 0) {
+            teacher.lectures[index].videos.forEach((video, i) => {
+                const lectureButton = document.createElement('button');
+                lectureButton.textContent = `محاضرة ${i + 1}`;
+                lectureButton.onclick = () => {
+                    document.getElementById("videoSource").src = video;
+                    document.getElementById("videoPlayer").load();
+                    document.getElementById("videoPlayer").play();
+                };
+                sectionDiv.appendChild(lectureButton);
+            });
+        } else {
+            const noVideosMessage = document.createElement('p');
+            noVideosMessage.textContent = "لا توجد مقاطع فيديو لهذا القسم.";
+            sectionDiv.appendChild(noVideosMessage);
+        }
+
+        lecturesContainer.appendChild(sectionDiv);
+    }
+
+    showLectureSections();
+</script>
+</body>
+</html>
