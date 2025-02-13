@@ -1,90 +1,167 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #2980b9, #6dd5fa);
-        }
-        .login-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 300px;
-        }
-        h2 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #2980b9;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background: #2471a3;
-        }
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* تنسيق مخصص لصورة تسجيل الدخول */
+    .login-image {
+      display: block;
+      margin: 20px auto;
+      width: 150px;
+    }
+
+    /* تنسيق عام للصندوق */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #2980b9, #6dd5fa);
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 300px;
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    p {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+    .input-box {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .input-box label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .input-box input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #2980b9;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #2471a3;
+    }
+    .support-btn {
+      display: block;
+      margin-top: 15px;
+      color: #2980b9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .support-btn:hover {
+      text-decoration: underline;
+    }
+    .celebration {
+      text-align: center;
+      font-size: 18px;
+      color: green;
+      display: none;
+    }
+    .message-box {
+      background: #f9c2c2;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="login-box">
-        <h2>تسجيل الدخول</h2>
-        <input type="email" id="email" placeholder="البريد الإلكتروني">
-        <input type="password" id="password" placeholder="كلمة المرور">
-        <button onclick="checkLogin()">تسجيل الدخول</button>
-        <p class="error" id="error-msg"></p>
+  <!-- صندوق الرسائل -->
+  <div class="message-box hide" id="messageBox">
+    <span class="close-btn" onclick="closeMessage()">×</span>
+    <p id="messageText"></p>
+  </div>
+
+  <!-- تسجيل الدخول -->
+  <div class="container">
+    <div class="box">
+      <!-- إضافة صورة تسجيل الدخول -->
+      <img src="https://www.king-of-knowledge.com/assets/frontend/default-new/image/login-security.gif" alt="أمان الدخول" class="login-image">
+      
+      <h2>شمس التعليمية</h2>
+      <p>راسل مع الدعم الفني للاشتراك</p>
+
+      <div class="input-box">
+        <label>كود الاشتراك</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="input-box">
+        <label>كلمة سر الاشتراك</label>
+        <input type="password" id="password" required>
+      </div>
+
+      <button id="loginBtn" onclick="checkLogin()">تفعيل الاشتراك</button>
+      <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني (اضغط هنا )</a>
     </div>
+  </div>
 
-    <script>
-        function checkLogin() {
-            const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com"];
-            const correctPassword = "1020304050";
+  <!-- احتفالية تسجيل الدخول -->
+  <div class="celebration hide" id="celebration">
+    🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
+  </div>
 
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-            let errorMsg = document.getElementById("error-msg");
+  <script>
+    function closeMessage() {
+      document.getElementById("messageBox").style.display = "none";
+    }
 
-            if (allowedEmails.includes(email) && password === correctPassword) {
-                localStorage.setItem("loggedIn", "true");  // تخزين حالة الدخول في localStorage
-                window.location.href = "home.html";
-            } else {
-                errorMsg.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
-            }
-        }
-    </script>
+    function checkLogin() {
+      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com"];
+      const correctPassword = "1020304050";
+
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let messageBox = document.getElementById("messageBox");
+      let messageText = document.getElementById("messageText");
+
+      if (allowedEmails.includes(email) && password === correctPassword) {
+        document.getElementById("celebration").style.display = "block";
+        setTimeout(function() {
+          window.location.href = "home.html";
+        }, 2000);
+      } else {
+        messageBox.style.display = "block";
+        messageText.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
+      }
+    }
+  </script>
 
 </body>
 </html>
