@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>هشام المعموري</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* إعدادات عامة للنص والخلفية */
+    body {
+      font-family: 'Cairo', Arial, sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      /* خلفية بتدرج ألوان هادئ */
+      background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #fff;
+      margin-top: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    /* إعدادات البطاقات (الفصول) */
+    .chapter {
+      margin: 20px auto;
+      width: 90%;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .chapter-title {
+      padding: 20px;
+      /* تدرج دافئ وجذاب */
+      background: linear-gradient(to right, #F2994A, #F2C94C);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+    }
+    .chapter-title:hover {
+      background: linear-gradient(to right, #F2C94C, #F2994A);
+    }
+    /* قائمة المحاضرات (إخفاء/إظهار) */
+    .lecture-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+    }
+    /* إعدادات المحاضرة الفردية */
+    .lecture {
+      margin: 10px;
+      padding: 15px;
+      /* لون خلفية فاتح لطيف */
+      background: #fff9c4;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+    .lecture:hover {
+      background: #fff59d;
+    }
+    /* نافذة الفيديو */
+    .video-container {
+      display: none;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+    }
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    /* زر إغلاق الفيديو */
+    .close-btn {
+      margin-top: 10px;
+      background-color: #EF5350;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .close-btn:hover {
+      background-color: #E53935;
+    }
+  </style>
+</head>
+<body>
+  <h1>حسن عبد الكاظم</h1>
+
+  <!-- الفصل الأول -->
+  <div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter1')">
+      الفصل الاول 📕
+    </div>
+    <div id="chapter1" class="lecture-list">
+      <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/684ef575-e980-4e5a-aa00-0b1d8e9d6e33')">محاضرة 1</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/3506a95b-9450-4c87-9eb3-515cbf430ab5')">محاضرة 2</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/c4d7e556-68c6-4df7-aa54-c694aaa94477')">محاضرة 3</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/2e92648d-08fd-4697-a9f7-08c449564b3a')">محاضرة 4</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/fb0ad190-e3e2-477d-bebe-ab5ba740ab76')">محاضرة 5</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/3db33fc0-a52d-4a84-94f4-bd2f90eec521')">محاضرة 6</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/3d5935f4-091e-49e6-8b8d-c6df7fbc97f4')">محاضرة 7</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/3c08ebea-24e3-4af2-baf2-902ad4699bd4')">محاضرة 8</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/9166b8d7-2e8d-43ea-9602-21dae8f74c47')">محاضرة 9</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/2f452193-c4d6-4422-901f-09164958b5c7')">محاضرة 10</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/f9c17fb0-64a8-4085-8b1e-00f65bd3ac6d')">محاضرة 11</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/748af2ee-ec28-4432-8d2b-4c4decfd1c65')">محاضرة 12</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/425c7d9a-88ee-4714-aedb-75bcec988874')">محاضرة 13</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/4caec4d5-db95-4e53-bcce-dbe557de2aa3')">محاضرة 14</div>
+<div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/d8b32962-c28b-4f19-a0f2-b26ad453f2db')">محاضرة 15</div>
+      
+    </div>
+  </div>
+
+
+  <!-- نافذة عرض الفيديو -->
+  <div id="video-container" class="video-container">
+    <iframe id="video-frame" src="" allowfullscreen></iframe>
+    <button class="close-btn" onclick="closeVideo()">إغلاق الفيديو</button>
+  </div>
+
+  <script>
+    function toggleLectures(chapterId) {
+      const chapter = document.getElementById(chapterId);
+      if (chapter.style.maxHeight) {
+        chapter.style.maxHeight = null;
+      } else {
+        chapter.style.maxHeight = chapter.scrollHeight + "px";
+      }
+    }
+
+    function openVideo(url) {
+      const videoContainer = document.getElementById("video-container");
+      const videoFrame = document.getElementById("video-frame");
+      videoFrame.src = url;
+      videoContainer.style.display = "block";
+      window.scrollTo({ top: videoContainer.offsetTop, behavior: "smooth" });
+    }
+
+    function closeVideo() {
+      const videoContainer = document.getElementById("video-container");
+      const videoFrame = document.getElementById("video-frame");
+      videoFrame.src = "";
+      videoContainer.style.display = "none";
+    }
+  </script>
+</body>
+</html>
