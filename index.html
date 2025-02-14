@@ -30,11 +30,6 @@
       margin-bottom: 15px;
       color: #333;
     }
-    p {
-      font-size: 14px;
-      color: #777;
-      margin-bottom: 20px;
-    }
     .input-box {
       width: 100%;
       margin-bottom: 15px;
@@ -100,11 +95,20 @@
 </head>
 <body>
 
-  <div class="celebration" id="celebration">
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (loggedInUser) {
+        window.location.href = "https://hasneenn.github.io/Mark"; 
+      }
+    });
+  </script>
+
+  <div class="celebration hide" id="celebration">
     🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
   </div>
 
-  <div class="message-box" id="messageBox">
+  <div class="message-box hide" id="messageBox">
     <span class="close-btn" onclick="closeMessage()">×</span>
     <p id="messageText"></p>
   </div>
@@ -137,7 +141,7 @@
     }
 
     function checkLogin() {
-      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com", "Ma100@gmail.com"];
+      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com","Ma100@gmail.com", "GG236as@gmail.com", "RB2004@gmail.com", "KZ1As@gmail.com", "GXS2s@gmail.com", "ZC232as@gmail.com", "XTD276@gmail.com", "VVI17hj@gmail.com", "CFT4wo@gmail.com", "XIY36@gmail.com", "Fs77ss@gmail.com", "MK07H@gmail.com", "ZAYUVG2@gmail.com", "BJUC00@gmail.com", "OIJH39@gmail.com", "HG78RI@gmail.com", "UC55N@gmail.com", "UIH55@gmail.com", "XIUY80@gmail.com", "FPOO00@gmail.com"];
       const correctPassword = "NI08GB";
 
       let email = document.getElementById("email").value;
@@ -146,10 +150,10 @@
       let messageText = document.getElementById("messageText");
 
       if (allowedEmails.includes(email) && password === correctPassword) {
-        localStorage.setItem("loggedIn", "true"); // تخزين حالة تسجيل الدخول
+        localStorage.setItem("loggedInUser", email); 
         document.getElementById("celebration").style.display = "block";
         setTimeout(function() {
-          window.location.href = "home.html";
+          window.location.href = "https://hasneenn.github.io/Mark"; 
         }, 2000);
       } else {
         messageBox.style.display = "block";
