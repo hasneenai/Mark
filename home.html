@@ -245,20 +245,17 @@
         © 2025 منصة شسمس التعليمية
     </footer>
 
-    <script>
-        window.onscroll = function() {
-            let btn = document.getElementById("backToTop");
-            if (document.documentElement.scrollTop > 100) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
+        <script>
+        const loggedInUser = localStorage.getItem("loggedInUser");
+        if (!loggedInUser) {
+            window.location.href = "index.html"; // إعادة التوجيه إلى صفحة تسجيل الدخول
+        }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
         }
     </script>
-
 </body>
 </html>
