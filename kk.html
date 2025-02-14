@@ -86,6 +86,9 @@
       background-color: #E53935;
     }
   </style>
+
+  <!-- إضافة مكتبة HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
   <h1>حسين الهاشمي</h1>
@@ -152,9 +155,16 @@
     function openVideo(url) {
       const videoContainer = document.getElementById("video-container");
       const videoSource = document.getElementById("video-source");
-      videoSource.src = url;
       const videoPlayer = document.getElementById("video-player");
-      videoPlayer.load();
+      
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(videoPlayer);
+      } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        videoPlayer.src = url;
+      }
+
       videoContainer.style.display = "block";
       window.scrollTo({ top: videoContainer.offsetTop, behavior: "smooth" });
     }
