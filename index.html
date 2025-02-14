@@ -83,6 +83,7 @@
       font-size: 18px;
       color: green;
       display: none;
+      margin-bottom: 20px; /* لضبط المسافة بين الاحتفالية وصندوق الدخول */
     }
     .message-box {
       background: #f9c2c2;
@@ -101,6 +102,11 @@
   </style>
 </head>
 <body>
+
+  <!-- احتفالية تسجيل الدخول -->
+  <div class="celebration hide" id="celebration">
+    🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
+  </div>
 
   <!-- صندوق الرسائل -->
   <div class="message-box hide" id="messageBox">
@@ -130,11 +136,6 @@
       <button id="loginBtn" onclick="checkLogin()">تفعيل الاشتراك</button>
       <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني (اضغط هنا )</a>
     </div>
-  </div>
-
-  <!-- احتفالية تسجيل الدخول -->
-  <div class="celebration hide" id="celebration">
-    🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
   </div>
 
   <script>
