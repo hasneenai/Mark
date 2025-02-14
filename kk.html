@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حسين الهاشمي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* إعدادات عامة للنص والخلفية */
+    body {
+      font-family: 'Cairo', Arial, sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #74ebd5, #acb6e5);
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #fff;
+      margin-top: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .chapter {
+      margin: 20px auto;
+      width: 90%;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .chapter-title {
+      padding: 20px;
+      background: linear-gradient(to right, #F2994A, #F2C94C);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+    }
+    .chapter-title:hover {
+      background: linear-gradient(to right, #F2C94C, #F2994A);
+    }
+    .lecture-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+    }
+    .lecture {
+      margin: 10px;
+      padding: 15px;
+      background: #fff9c4;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+    .lecture:hover {
+      background: #fff59d;
+    }
+    .video-container {
+      display: none;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+    }
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .close-btn {
+      margin-top: 10px;
+      background-color: #EF5350;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .close-btn:hover {
+      background-color: #E53935;
+    }
+  </style>
+</head>
+<body>
+  <h1>حسين الهاشمي</h1>
+
+  <!-- الفصل الأول -->
+  <div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter1')">
+      الفصل الاول 📕
+    </div>
+    <div id="chapter1" class="lecture-list">
+      <div class="lecture">غير متوفر</div>
+    </div>
+  </div>
+
+  <!-- الفصل الثاني -->
+  <div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter2')">
+      الفصل الثاني 📕
+    </div>
+    <div id="chapter2" class="lecture-list">
+      <div class="lecture">غير متوفر</div>
+    </div>
+  </div>
+
+  <!-- الفصل الثالث -->
+  <div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter3')">
+      الفصل الثالث 📕
+    </div>
+    <div id="chapter3" class="lecture-list">
+      <div class="lecture">غير متوفر</div>
+    </div>
+  </div>
+
+  <!-- الفصل الرابع -->
+  <div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter4')">
+      الفصل الرابع 📕
+    </div>
+    <div id="chapter4" class="lecture-list">
+      <div class="lecture" onclick="openVideo('https://vz-a58ace6d-ff4.b-cdn.net/d1edecca-bbb5-496f-b3a4-0ced450d148e/playlist.m3u8')">محاضرة 1</div>
+    </div>
+  </div>
+
+  <!-- نافذة عرض الفيديو -->
+  <div id="video-container" class="video-container">
+    <iframe id="video-frame" src="" allowfullscreen></iframe>
+    <button class="close-btn" onclick="closeVideo()">إغلاق الفيديو</button>
+  </div>
+
+  <script>
+    function toggleLectures(chapterId) {
+      const chapter = document.getElementById(chapterId);
+      if (chapter.style.maxHeight) {
+        chapter.style.maxHeight = null;
+      } else {
+        chapter.style.maxHeight = chapter.scrollHeight + "px";
+      }
+    }
+
+    function openVideo(url) {
+      const videoContainer = document.getElementById("video-container");
+      const videoFrame = document.getElementById("video-frame");
+      videoFrame.src = url;
+      videoContainer.style.display = "block";
+      window.scrollTo({ top: videoContainer.offsetTop, behavior: "smooth" });
+    }
+
+    function closeVideo() {
+      const videoContainer = document.getElementById("video-container");
+      const videoFrame = document.getElementById("video-frame");
+      videoFrame.src = "";
+      videoContainer.style.display = "none";
+    }
+  </script>
+</body>
+</html>
