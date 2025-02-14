@@ -6,14 +6,11 @@
   <title>تسجيل الدخول</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    /* تنسيق مخصص لصورة تسجيل الدخول */
     .login-image {
       display: block;
       margin: 20px auto;
       width: 150px;
     }
-
-    /* تنسيق عام للصندوق */
     .container {
       display: flex;
       justify-content: center;
@@ -83,7 +80,7 @@
       font-size: 18px;
       color: green;
       display: none;
-      margin-bottom: 20px; /* لضبط المسافة بين الاحتفالية وصندوق الدخول */
+      margin-bottom: 20px;
     }
     .message-box {
       background: #f9c2c2;
@@ -103,21 +100,17 @@
 </head>
 <body>
 
-  <!-- احتفالية تسجيل الدخول -->
-  <div class="celebration hide" id="celebration">
+  <div class="celebration" id="celebration">
     🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
   </div>
 
-  <!-- صندوق الرسائل -->
-  <div class="message-box hide" id="messageBox">
+  <div class="message-box" id="messageBox">
     <span class="close-btn" onclick="closeMessage()">×</span>
     <p id="messageText"></p>
   </div>
 
-  <!-- تسجيل الدخول -->
   <div class="container">
     <div class="box">
-      <!-- إضافة صورة تسجيل الدخول -->
       <img src="https://www.king-of-knowledge.com/assets/frontend/default-new/image/login-security.gif" alt="أمان الدخول" class="login-image">
       
       <h2>شمس التعليمية</h2>
@@ -144,7 +137,7 @@
     }
 
     function checkLogin() {
-      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com","Ma100@gmail.com", "GG236as@gmail.com", "RB2004@gmail.com", "KZ1As@gmail.com", "GXS2s@gmail.com", "ZC232as@gmail.com", "XTD276@gmail.com", "VVI17hj@gmail.com", "CFT4wo@gmail.com", "XIY36@gmail.com", "Fs77ss@gmail.com", "MK07H@gmail.com", "ZAYUVG2@gmail.com", "BJUC00@gmail.com", "OIJH39@gmail.com", "HG78RI@gmail.com", "UC55N@gmail.com", "UIH55@gmail.com", "XIUY80@gmail.com", "FPOO00@gmail.com"];
+      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com", "Ma100@gmail.com"];
       const correctPassword = "NI08GB";
 
       let email = document.getElementById("email").value;
@@ -153,6 +146,7 @@
       let messageText = document.getElementById("messageText");
 
       if (allowedEmails.includes(email) && password === correctPassword) {
+        localStorage.setItem("loggedIn", "true"); // تخزين حالة تسجيل الدخول
         document.getElementById("celebration").style.display = "block";
         setTimeout(function() {
           window.location.href = "home.html";
