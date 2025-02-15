@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Cairo", sans-serif;
+}
+
+/* خلفية ناعمة مع تدرج ألوان هادئة */
+body {
+    background: linear-gradient(135deg, #f1faee, #a8dadc);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 15px;
+}
+
+/* تصميم صندوق الرسائل */
+.message-box {
+    background: #ffffff;
+    border-left: 5px solid #457b9d;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: right;
+    position: fixed;
+    top: 20px;
+    z-index: 9999;
+    animation: slideIn 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-30px); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #e63946;
+    font-weight: bold;
+}
+
+.hide {
+    animation: slideOut 0.5s ease-in forwards;
+}
+
+/* صندوق تسجيل الدخول */
+.container {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.5s ease-in;
+    margin-top: 50px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.box {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* تنسيق صورة تسجيل الدخول */
+.login-image {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 120px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.login-image:hover {
+    transform: scale(1.05);
+}
+
+/* تنسيق حقول الإدخال */
+.input-box {
+    position: relative;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: #333;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f8f9fa;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #457b9d;
+    background: #ffffff;
+}
+
+/* زر تسجيل الدخول */
+button {
+    width: 100%;
+    padding: 14px;
+    background: #457b9d;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #1d3557;
+}
+
+/* زر الدعم الفني */
+.support-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px;
+    background: #2a9d8f;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.support-btn:hover {
+    background: #21867a;
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-top: 30px;
+        padding: 0 10px;
+    }
+    .box {
+        padding: 20px;
+    }
+  }
