@@ -6,91 +6,133 @@
   <title>تسجيل الدخول</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    .login-image {
-      display: block;
-      margin: 20px auto;
-      width: 150px;
+    /* استيراد خط "Cairo" */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Cairo", sans-serif;
     }
+
+    /* خلفية متدرجة */
+    body {
+        background: linear-gradient(135deg, #f1faee, #a8dadc);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 15px;
+    }
+
+    /* صندوق تسجيل الدخول */
     .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #2980b9, #6dd5fa);
+        width: 100%;
+        max-width: 400px;
+        animation: fadeIn 0.5s ease-in;
     }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
     .box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      width: 300px;
+        background: #ffffff;
+        padding: 30px 25px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
-    h2 {
-      margin-bottom: 15px;
-      color: #333;
+
+    /* تنسيق صورة تسجيل الدخول */
+    .login-image {
+        display: block;
+        margin: 0 auto 20px auto;
+        width: 120px;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
     }
+
+    .login-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* تنسيق الحقول */
     .input-box {
-      width: 100%;
-      margin-bottom: 15px;
+        position: relative;
+        margin: 20px 0;
+        text-align: left;
     }
+
     .input-box label {
-      display: block;
-      text-align: left;
-      margin-bottom: 5px;
-      font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 15px;
+        color: #333;
     }
+
     .input-box input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      outline: none;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background: #f8f9fa;
+        transition: 0.3s;
     }
+
+    .input-box input:focus {
+        border-color: #457b9d;
+        background: #ffffff;
+    }
+
+    /* زر تسجيل الدخول */
     button {
-      width: 100%;
-      padding: 10px;
-      background: #2980b9;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
+        width: 100%;
+        padding: 14px;
+        background: #457b9d;
+        border: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 10px;
     }
+
     button:hover {
-      background: #2471a3;
+        background: #1d3557;
     }
+
+    /* زر الدعم الفني */
     .support-btn {
-      display: block;
-      margin-top: 15px;
-      color: #2980b9;
-      text-decoration: none;
-      font-size: 14px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        padding: 12px;
+        background: #2a9d8f;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background 0.3s ease;
     }
+
     .support-btn:hover {
-      text-decoration: underline;
+        background: #21867a;
     }
-    .celebration {
-      text-align: center;
-      font-size: 18px;
-      color: green;
-      display: none;
-      margin-bottom: 20px;
+
+    @media (max-width: 480px) {
+        .container { margin-top: 30px; padding: 0 10px; }
+        .box { padding: 20px; }
     }
-    .message-box {
-      background: #f9c2c2;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      color: red;
-      font-size: 14px;
-      display: none;
-    }
-    .close-btn {
-      float: right;
-      cursor: pointer;
-      font-size: 20px;
-    }
+
   </style>
 </head>
 <body>
@@ -103,15 +145,6 @@
       }
     });
   </script>
-
-  <div class="celebration hide" id="celebration">
-    🎉 مبروك! تم تسجيل الدخول بنجاح 🎉
-  </div>
-
-  <div class="message-box hide" id="messageBox">
-    <span class="close-btn" onclick="closeMessage()">×</span>
-    <p id="messageText"></p>
-  </div>
 
   <div class="container">
     <div class="box">
@@ -131,33 +164,25 @@
       </div>
 
       <button id="loginBtn" onclick="checkLogin()">تفعيل الاشتراك</button>
-      <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني (اضغط هنا )</a>
+      <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني (اضغط هنا)</a>
     </div>
   </div>
 
   <script>
-    function closeMessage() {
-      document.getElementById("messageBox").style.display = "none";
-    }
-
     function checkLogin() {
       const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com","Ma100@gmail.com", "GG236as@gmail.com", "RB2004@gmail.com", "KZ1As@gmail.com", "GXS2s@gmail.com", "ZC232as@gmail.com", "XTD276@gmail.com", "VVI17hj@gmail.com", "CFT4wo@gmail.com", "XIY36@gmail.com", "Fs77ss@gmail.com", "MK07H@gmail.com", "ZAYUVG2@gmail.com", "BJUC00@gmail.com", "OIJH39@gmail.com", "HG78RI@gmail.com", "UC55N@gmail.com", "UIH55@gmail.com", "XIUY80@gmail.com", "FPOO00@gmail.com"];
       const correctPassword = "NI08GB";
 
       let email = document.getElementById("email").value;
       let password = document.getElementById("password").value;
-      let messageBox = document.getElementById("messageBox");
-      let messageText = document.getElementById("messageText");
 
       if (allowedEmails.includes(email) && password === correctPassword) {
         localStorage.setItem("loggedInUser", email); 
-        document.getElementById("celebration").style.display = "block";
         setTimeout(function() {
           window.location.href = "https://hasneenn.github.io/Mark"; 
         }, 2000);
       } else {
-        messageBox.style.display = "block";
-        messageText.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة!";
+        alert("البريد الإلكتروني أو كلمة المرور غير صحيحة!");
       }
     }
   </script>
