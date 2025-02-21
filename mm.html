@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>حسن عبد الكاظم</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+  <script>
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+        window.location.href = "https://2cm.es/T6Oj";
+    }
+
+    </script>
   <style>
     /* إعدادات عامة للنص والخلفية */
     body {
@@ -216,10 +223,10 @@
 
   <!-- الفصل الرابع -->
   <div class="chapter">
-    <div class="chapter-title" onclick="toggleLectures('chapter5')">
+    <div class="chapter-title" onclick="toggleLectures('chapter4')">
       الفصل الرابع 📒
     </div>
-    <div id="chapter5" class="lecture-list">
+    <div id="chapter4" class="lecture-list">
       <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/eb967892-d4a5-417a-bd6a-71d6a57c95b5')">محاضرة 1</div>
 <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/3485fe57-0295-478c-b243-c8e2510c6530')">محاضرة 2</div>
 <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/27ecf172-3224-4d20-82f6-01418f67186a')">محاضرة 3</div>
@@ -229,6 +236,17 @@
 <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/465ae32c-8c61-43c8-9d7f-5b0c18b4f7b4')">محاضرة 7</div>
     </div>
   </div>
+  
+  
+<div class="chapter">
+    <div class="chapter-title" onclick="toggleLectures('chapter5')">
+        الفصل الخامس 📒
+    </div>
+    <div id="chapter5" class="lecture-list">
+        سيتم الاضافة قريبًا
+    </div>
+</div>
+    
   <!-- نافذة عرض الفيديو -->
   <div id="video-container" class="video-container">
     <iframe id="video-frame" src="" allowfullscreen></iframe>
