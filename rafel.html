@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>رفل الزبيدي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+        window.location.href = "https://2cm.es/T6Oj";
+    }
+
+    </script>
     <style>
         body {
             font-family: "Cairo", Arial, sans-serif;
@@ -229,6 +236,18 @@
         <div id="chapter6" class="lecture-list">
          <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/da31dfd4-e731-4975-b21d-ff146efcb2d1')">محاضرة 1</div>
             <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/1aaeebf4-92e6-4b97-99e7-a4c99c8d5409')">محاضرة 2</div>
+      </div>
+    </div>
+
+
+    <div class="chapter">
+        <div class="chapter-title" onclick="toggleLectures('chapter7')">
+          التعجب
+        </div>
+        <div id="chapter7" class="lecture-list">
+         <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/82077988-b4f6-4437-b959-8e8870834d4b')">محاضرة 1</div>
+            <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/8fbee425-4136-4530-8b97-0d177243d7c9')">محاضرة 2</div>
+            <div class="lecture" onclick="openVideo('https://iframe.mediadelivery.net/embed/215061/7e7fc319-11db-44b4-887c-bd79af980fe4')">محاضرة 3</div>
       </div>
     </div>
     
