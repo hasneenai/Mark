@@ -3,186 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الاشتراك منصة شمس السادس</title>
+  <title>تسجيل الدخول</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
-  
   <style>
+    /* استيراد خط "Cairo" */
     * {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Cairo", sans-serif;
     }
 
-    /* خلفية حديثة بتدرج لوني */
+    /* خلفية متدرجة */
     body {
-      background: linear-gradient(135deg, #4B0082, #1E90FF);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+        background: linear-gradient(135deg, #f1faee, #a8dadc);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        padding: 15px;
     }
 
     /* صندوق تسجيل الدخول */
     .container {
-      background: rgba(255, 255, 255, 0.1); /* لون شفاف قليلاً */
-      padding: 20px;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-      border-radius: 15px;
-      text-align: center;
-      width: 320px;
-      backdrop-filter: blur(10px); /* تأثير الزجاج */
-      border: 1px solid rgba(255, 255, 255, 0.3);
+        width: 100%;
+        max-width: 400px;
+        animation: fadeIn 0.5s ease-in;
     }
 
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .box {
+        background: #ffffff;
+        padding: 30px 25px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* تنسيق صورة تسجيل الدخول */
     .login-image {
-      display: block;
-      margin: 10px auto;
-      width: 120px;
+        display: block;
+        margin: 0 auto 20px auto;
+        width: 120px;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
     }
 
-    h2 {
-      color: white;
-      font-weight: 700;
+    .login-image:hover {
+        transform: scale(1.05);
     }
 
-    p {
-      color: #ddd;
-      margin-bottom: 15px;
-    }
-
+    /* تنسيق الحقول */
     .input-box {
-      margin-bottom: 15px;
-      text-align: left;
+        position: relative;
+        margin: 20px 0;
+        text-align: left;
     }
 
     .input-box label {
-      font-weight: 700;
-      display: block;
-      margin-bottom: 5px;
-      color: white;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 15px;
+        color: #333;
     }
 
     .input-box input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 5px;
-      font-size: 16px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background: #f8f9fa;
+        transition: 0.3s;
     }
 
-    .input-box input::placeholder {
-      color: #ccc;
+    .input-box input:focus {
+        border-color: #457b9d;
+        background: #ffffff;
     }
 
+    /* زر تسجيل الدخول */
     button {
-      width: 100%;
-      padding: 10px;
-      background: #ff7f50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
+        width: 100%;
+        padding: 14px;
+        background: #457b9d;
+        border: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 10px;
     }
 
     button:hover {
-      background: #ff6347;
+        background: #1d3557;
     }
 
+    /* زر الدعم الفني */
     .support-btn {
-      display: block;
-      margin-top: 15px;
-      color: #ffcc00;
-      text-decoration: none;
-      font-weight: bold;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        padding: 12px;
+        background: #2a9d8f;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background 0.3s ease;
     }
 
     .support-btn:hover {
-      text-decoration: underline;
+        background: #21867a;
     }
 
-    .message-box {
-      display: none;
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid;
-      text-align: center;
-      min-width: 250px;
-      font-size: 16px;
-      font-weight: bold;
+    @media (max-width: 480px) {
+        .container { margin-top: 30px; padding: 0 10px; }
+        .box { padding: 20px; }
     }
 
-    .error {
-      background-color: #ffdddd;
-      color: #d8000c;
-      border-color: #d8000c;
-    }
-
-    .success {
-      background-color: #ddffdd;
-      color: #4CAF50;
-      border-color: #4CAF50;
-    }
   </style>
 </head>
 <body>
 
-  <!-- صندوق الرسائل -->
-  <div class="message-box" id="messageBox">
-    <p id="messageText"></p>
-  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (loggedInUser) {
+        window.location.href = "https://hasneenai.github.io/Mark/home"; 
+      }
+    });
+  </script>
 
-  <!-- تسجيل الدخول -->
   <div class="container">
-    <img src="https://www.king-of-knowledge.com/assets/frontend/default-new/image/login-security.gif" alt="أمان الدخول" class="login-image">
-    
-    <h2>منصة شمس السادس</h2>
-    <p>راسل مع الدعم الفني للاشتراك</p>
+    <div class="box">
+      <img src="https://www.king-of-knowledge.com/assets/frontend/default-new/image/login-security.gif" alt="أمان الدخول" class="login-image">
+      
+      <h2>شمس التعليمية</h2>
+      <p>راسل مع الدعم الفني للاشتراك</p>
 
-    <div class="input-box">
-      <label>البريد الإلكتروني</label>
-      <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+      <div class="input-box">
+        <label>كود الاشتراك</label>
+        <input type="email" id="email" required>
+      </div>
+
+      <div class="input-box">
+        <label>كلمة سر الاشتراك</label>
+        <input type="password" id="password" required>
+      </div>
+
+      <button id="loginBtn" onclick="checkLogin()">تفعيل الاشتراك</button>
+      <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني (اضغط هنا)</a>
     </div>
-
-    <div class="input-box">
-      <label>كلمة المرور</label>
-      <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
-    </div>
-
-    <button id="loginBtn">تفعيل الاشتراك</button>
-    <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني اضغط هنا</a>
   </div>
 
   <script>
-    // بيانات تسجيل الدخول الثابتة
-    const fixedEmail = "h@h.h"; // البريد الإلكتروني الثابت
-    const fixedPassword = "1"; // كلمة المرور الثابتة
+    function checkLogin() {
+      const allowedEmails = ["hso@gmail.com", "ali@gmail.com", "mas@gmail.com", "mhmaed@gmail.com","Ma100@gmail.com", "GG236as@gmail.com", "RB2004@gmail.com", "KZ1As@gmail.com", "GXS2s@gmail.com", "XTD276@gmail.com", "CFT4wo@gmail.com", "XIY36@gmail.com", "Fs77ss@gmail.com", "MK07H@gmail.com", "BJUC00@gmail.com","HG78RI@gmail.com", "UC55N@gmail.com", "UIH55@gmail.com", "XIUY80@gmail.com", "FPOO00@gmail.com", "TR874mn@gmail.com","QW329df@gmail.com","PL675xt@gmail.com","ZX120vc@gmail.com","MN548gh@gmail.com","LK983yu@gmail.com","OP456bn@gmail.com","AS213jk@gmail.com","FG768qp@gmail.com","TY902we@gmail.com","VD541zx@gmail.com","XC874lm@gmail.com","BN632rt@gmail.com","MQ905df@gmail.com","RT287cv@gmail.com","WE671op@gmail.com","YU459bn@gmail.com","OP328gh@gmail.com","ZX741jk@gmail.com","MN985we@gmail.com","FG214zx@gmail.com","AS639yt@gmail.com","RT807mn@gmail.com","TY230pl@gmail.com","XC514vb@gmail.com","QW971we@gmail.com","LK748yu@gmail.com","MN630df@gmail.com","OP412jk@gmail.com","PL789zx@gmail.com","FG285mn@gmail.com","ZX903yt@gmail.com","WE569cv@gmail.com","AS471bn@gmail.com","RT648pl@gmail.com","TY390df@gmail.com","BN862gh@gmail.com","OP752jk@gmail.com","LK531zx@gmail.com","XC908we@gmail.com","YU374mn@gmail.com","FG651pl@gmail.com","QW280cv@gmail.com","RT859bn@gmail.com","ZX472yt@gmail.com","AS905df@gmail.com","MN683jk@gmail.com","OP142zx@gmail.com","TY749we@gmail.com","LK350mn@gmail.com","WE520pl@gmail.com","BN870df@gmail.com","QW149cv@gmail.com","RT904gh@gmail.com","XC238jk@gmail.com","ZX741we@gmail.com","FG693mn@gmail.com","OP582yt@gmail.com","AS307pl@gmail.com","LK815df@gmail.com","TY640cv@gmail.com","BN972gh@gmail.com","QW503jk@gmail.com","XC741zx@gmail.com","RT298we@gmail.com","OP650mn@gmail.com","AS940pl@gmail.com","LK379df@gmail.com","TY524cv@gmail.com","BN703gh@gmail.com","ZX185jk@gmail.com","XC902we@gmail.com","QW475mn@gmail.com","FG612pl@gmail.com","OP398df@gmail.com","TY751cv@gmail.com","LK832gh@gmail.com","AS940jk@gmail.com","WE503zx@gmail.com","BN742we@gmail.com","XC698mn@gmail.com","ZX401pl@gmail.com","QW582df@gmail.com","RT903cv@gmail.com","FG275gh@gmail.com","TY641jk@gmail.com","AS708we@gmail.com","OP319mn@gmail.com","LK540pl@gmail.com","QW892df@gmail.com","RT731cv@gmail.com","ZX208gh@gmail.com","XC619jk@gmail.com","FG374zx@gmail.com","OP590we@gmail.com","AS842mn@gmail.com","TY312pl@gmail.com","LK709df@gmail.com","BN561cv@gmail.com","QW980gh@gmail.com"];
+      const correctPassword = "NI08GB";
 
-    document.getElementById("loginBtn").addEventListener("click", function() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const messageBox = document.getElementById("messageBox");
-        const messageText = document.getElementById("messageText");
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
 
-        if (email === fixedEmail && password === fixedPassword) {
-            messageBox.className = "message-box success";
-            messageText.textContent = "🎉 تم تسجيل الدخول بنجاح!";
-        } else {
-            messageBox.className = "message-box error";
-            messageText.textContent = "❌ بيانات الدخول غير صحيحة!";
-        }
-        
-        messageBox.style.display = "block";
-        setTimeout(() => { messageBox.style.display = "none"; }, 3000); // إخفاء الرسالة بعد 3 ثوانٍ
-    });
+      if (allowedEmails.includes(email) && password === correctPassword) {
+        localStorage.setItem("loggedInUser", email); 
+        setTimeout(function() {
+          window.location.replace("https://hasneenai.github.io/Mark/home"); 
+        }, 2000);
+      } else {
+        alert("البريد الإلكتروني أو كلمة المرور غير صحيحة!");
+      }
+    }
   </script>
 
 </body>
