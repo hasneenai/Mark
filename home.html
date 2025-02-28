@@ -244,18 +244,5 @@
     <footer>
         © 2025 منصة شسمس التعليمية
     </footer>
-
-        <script>
-        const loggedInUser = localStorage.getItem("loggedInUser");
-        if (!loggedInUser) {
-            window.location.href = "index.html"; // إعادة التوجيه إلى صفحة تسجيل الدخول
-        }
-
-        // تسجيل الخروج
-        function logout() {
-            localStorage.removeItem("loggedInUser");
-            window.location.href = "index.html";
-        }
-    </script>
 </body>
 </html>
