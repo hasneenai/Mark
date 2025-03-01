@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>صفحه تسجيل الدخول</title>
+  <title>الاشتراك منصة شمس السادس</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
   
   <style>
@@ -15,40 +14,36 @@
       box-sizing: border-box;
     }
 
+    /* خلفية حديثة بتدرج لوني */
     body {
       background: linear-gradient(135deg, #4B0082, #1E90FF);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      padding: 20px;
     }
 
+    /* صندوق تسجيل الدخول */
     .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 25px;
-      width: 350px;
+      background: rgba(255, 255, 255, 0.1); /* لون شفاف قليلاً */
+      padding: 20px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
       border-radius: 15px;
       text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      backdrop-filter: blur(10px); /* تأثير الزجاج */
       border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: 0.3s ease-in-out;
-    }
-
-    .container:hover {
-      transform: scale(1.02);
     }
 
     .login-image {
-      width: 100px;
-      margin-bottom: 15px;
+      display: block;
+      margin: 10px auto;
+      width: 120px;
     }
 
     h2 {
       color: white;
       font-weight: 700;
-      margin-bottom: 10px;
     }
 
     p {
@@ -62,59 +57,52 @@
     }
 
     .input-box label {
-      color: white;
-      font-weight: bold;
+      font-weight: 700;
       display: block;
       margin-bottom: 5px;
+      color: white;
     }
 
     .input-box input {
       width: 100%;
       padding: 10px;
-      border: none;
-      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
       font-size: 16px;
       background: rgba(255, 255, 255, 0.2);
       color: white;
-      outline: none;
-      transition: 0.3s;
     }
 
-    .input-box input:focus {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.03);
+    .input-box input::placeholder {
+      color: #ccc;
     }
 
     button {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       background: #ff7f50;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       font-size: 18px;
       cursor: pointer;
       transition: 0.3s;
-      font-weight: bold;
     }
 
     button:hover {
       background: #ff6347;
-      transform: scale(1.05);
     }
 
-    .register-link {
+    .support-btn {
       display: block;
       margin-top: 15px;
       color: #ffcc00;
       text-decoration: none;
       font-weight: bold;
-      transition: 0.3s;
     }
 
-    .register-link:hover {
+    .support-btn:hover {
       text-decoration: underline;
-      color: #ffd700;
     }
 
     .message-box {
@@ -123,11 +111,11 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 12px;
+      padding: 10px;
       border-radius: 5px;
       border: 1px solid;
       text-align: center;
-      min-width: 280px;
+      min-width: 250px;
       font-size: 16px;
       font-weight: bold;
     }
@@ -147,19 +135,21 @@
 </head>
 <body>
 
+  <!-- صندوق الرسائل -->
   <div class="message-box" id="messageBox">
     <p id="messageText"></p>
   </div>
 
+  <!-- تسجيل الدخول -->
   <div class="container">
     <img src="https://www.king-of-knowledge.com/assets/frontend/default-new/image/login-security.gif" alt="أمان الدخول" class="login-image">
-  
-    <h2>تسجيل الدخول</h2>
-    <p>أدخل البريد الإلكتروني أو اسم المستخدم وكلمة المرور</p>
+    
+    <h2>منصة شمس السادس</h2>
+    <p>راسل مع الدعم الفني للاشتراك</p>
 
     <div class="input-box">
-      <label>البريد الإلكتروني أو اسم المستخدم</label>
-      <input type="text" id="userInput" placeholder="أدخل البريد أو اسم المستخدم" required>
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
     </div>
 
     <div class="input-box">
@@ -167,38 +157,36 @@
       <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
     </div>
 
-    <button id="loginBtn">تسجيل الدخول</button>
-    <a href="signup.html" class="register-link">إنشاء حساب جديد</a>
+    <button id="loginBtn">تفعيل الاشتراك</button>
+    <a href="https://t.me/M103SM" class="support-btn">حساب الدعم الفني اضغط هنا</a>
   </div>
 
   <script>
+    // بيانات تسجيل الدخول الثابتة
+    const fixedEmail = "h@h.h"; // البريد الإلكتروني الثابت
+    const fixedPassword = "1"; // كلمة المرور الثابتة
+
     document.getElementById("loginBtn").addEventListener("click", function() {
-        const userInput = document.getElementById("userInput").value;
+        const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         const messageBox = document.getElementById("messageBox");
         const messageText = document.getElementById("messageText");
 
-        const storedUser = localStorage.getItem("username");
-        const storedEmail = localStorage.getItem("email");
-        const storedPassword = localStorage.getItem("password");
-
-        if (!userInput || !password) {
-            messageBox.className = "message-box error";
-            messageText.textContent = "❌ جميع الحقول مطلوبة!";
-        } else if ((userInput === storedUser || userInput === storedEmail) && password === storedPassword) {
+        if (email === fixedEmail && password === fixedPassword) {
             messageBox.className = "message-box success";
-            messageText.textContent = "✅ تسجيل الدخول ناجح!";
+            messageText.textContent = "🎉 تم تسجيل الدخول بنجاح!";
+
+            // إعادة التوجيه بعد 2 ثانية بدون .html في الرابط
             setTimeout(function() {
-              window.location.replace("https://hasneenai.github.io/me/home");
-             
-            }, 2000);
+              window.location.replace("https://hasneenai.github.io/Mark/home"); // الرابط بدون .html
+            }, 2000); // 2 ثانية
         } else {
             messageBox.className = "message-box error";
             messageText.textContent = "❌ بيانات الدخول غير صحيحة!";
         }
-
+        
         messageBox.style.display = "block";
-        setTimeout(() => { messageBox.style.display = "none"; }, 3000);
+        setTimeout(() => { messageBox.style.display = "none"; }, 3000); // إخفاء الرسالة بعد 3 ثوانٍ
     });
   </script>
 
